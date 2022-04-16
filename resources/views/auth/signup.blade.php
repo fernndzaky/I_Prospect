@@ -15,7 +15,7 @@
 
 </head>
 <body style="background-color:#8FC449">
-    <div class="row m-0 page-container" style="padding-top:8vw">
+    <div class="row m-0 page-container" style="padding-top:8vw;padding-bottom:8vw">
 
         <div class="col-12" style="text-align:center">
             <p class="px-24 roboto-regular" style="color:#FFFFFF">Disclaimer: This system is not iProspect Official Website.</p>
@@ -41,34 +41,44 @@ Unauthorised or improper use of this system may result in disciplinary or legal 
                     </div>
                     <div style="margin-top:4vw">
                         <form action="">
-                            <!-- START OF ONE FORM -->
+                            <!-- START OF ONE INPUT -->
+                            <div>
+                                <p class="px-24" style="margin-bottom:0.5vw">Name</p>
+                                <input type="text" class="px-24" style="width:100%;padding:0vw 0.4vw" placeholder="Insert your full name">
+                            </div>
+                            <!-- START OF ONE INPUT -->
+                            <!-- START OF ONE INPUT -->
                             <div>
                                 <p class="px-24" style="margin-bottom:0.5vw">Email Address</p>
                                 <input type="email" class="px-24" style="width:100%;padding:0vw 0.4vw" placeholder="Insert your email">
                             </div>
-                            <!-- END OF ONE FORM -->
-                            <!-- START OF ONE FORM -->
+                            <!-- START OF ONE INPUT -->
+                            <!-- START OF ONE INPUT -->
                             <div style="margin-top:1vw">
                                 <p class="px-24" style="margin-bottom:0.5vw">Password</p>
                                 <input type="password" class="px-24" style="width:100%;padding:0vw 0.4vw" placeholder="Insert your password">
                             </div>
-                            <div style="margin-top:2vw;text-align:center">
-                                <button class="btn-grey" type="submit" style="width:10vw">Sign In</button>
+                            <!-- END OF ONE INPUT -->
+                            <!-- START OF ONE INPUT -->
+                            <div>
+                                <p class="px-24" style="margin-bottom:0.5vw">Occupancy</p>
+                                <input type="text" class="px-24" style="width:100%;padding:0vw 0.4vw" placeholder="Insert your occupancy">
                             </div>
-                            <!-- END OF ONE FORM -->
+                            <!-- START OF ONE INPUT -->
+                            <div style="margin-top:2vw;text-align:center">
+                                <button class="btn-grey" type="submit" style="width:10vw">Sign Up</button>
+                            </div>
                         </form>
                     </div>
                 </div>
                 <!-- END OF LOGIN FORM -->  
                 <!-- START OF BOTTOM SECTION -->
                 <div style="margin-top:1.5vw;text-align:center">
-                    <a href="/" class="px-18">Forgot your password?</a>
-                    <br>
-                    <p class="px-18" style="margin-bottom:0px">or</p>
-                    <a href="/" class="px-18">Create an account</a>
+                    <p class="px-18" style="margin-bottom:0px">Already have an account?</p>
+                    <a href="/" class="px-18">Sign in</a>
                 </div>
                 <div style="text-align:right;margin-top:1vw">
-                    <img src="assets/iProspect_Squared_Logo.png" class="img-fluid" style="width:3vw" alt="IProspect_Logo">
+                    <img src="assets/iProspect_Squared_Logo.png" class="img-fluid" style="width:3vw" alt="IProspect_Logo_Square">
                 </div>
 
                 <!-- END OF BOTTOM SECTION -->
