@@ -1,0 +1,220 @@
+* {
+    margin:0px;
+    padding:0px;
+}
+
+.roboto-regular{
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn-grey{  
+    background-color:#615D5D;border:0px;padding:0.5vw 1vw;border-radius:2vw;color:#FFFFFF;
+}
+
+/* Small devices (phones, 767 and below)*/
+@media only screen and (max-width: 767px) { 
+    .desktop-display{
+        display: none !important;
+    }
+       /* 1px = 0.07vw */
+    .px-144{
+        font-size: 3.25rem;
+        line-height: 3.25rem;
+    }
+
+    .px-96{
+        font-size: 2.5rem;
+        line-height: 2.5rem;
+    }
+
+    .px-72{
+        font-size: 2rem;
+        line-height: 2rem;
+    }
+
+    .px-64{
+        font-size: 1.75rem;
+        line-height: 2rem;
+    }
+
+    .px-48{
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+
+    }
+
+    .px-36{
+        font-size: 1.25rem;
+        line-height: 1.25rem;
+
+    }
+
+    .px-24{
+        font-size: 1rem;
+    }
+
+    .px-18{
+        font-size: 0.75rem;
+        line-height: 1rem;
+
+    }
+
+    .page-container{
+        padding-left:1rem;
+        padding-right:1rem
+    }
+
+}
+@media (min-width: 768px) and (orientation:portrait) {
+    .desktop-display{
+        display: none !important;
+    }
+    /* 1px = 0.07vw */
+    .px-144{
+        font-size: 4.5rem;
+        line-height: 5rem;
+    }
+
+    .px-96{
+        font-size: 3rem;
+        line-height: 3rem;
+    }
+
+    .px-72{
+        font-size: 2.75rem;
+        line-height: 2.75rem;
+    }
+
+    .px-64{
+        font-size: 2.5rem;
+        line-height: 3rem;
+    }
+
+    .px-48{
+        font-size: 1.75rem;
+        line-height: 2rem;
+
+    }
+
+    .px-36{
+        font-size: 1.25rem;
+        line-height: 1.25rem;
+
+    }
+
+    .px-24{
+        font-size: 1rem !important;
+    }
+
+    .px-18{
+        font-size: 0.85rem !important;
+        line-height: 1.2rem !important;
+    }
+    
+}
+
+
+
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+    /* 1px = 0.07vw */
+    .px-144{
+        font-size: 4.5rem;
+        line-height: 5rem;
+    }
+
+    .px-96{
+        font-size: 3rem;
+        line-height: 3rem;
+    }
+
+    .px-72{
+        font-size: 2.75rem;
+        line-height: 2.75rem;
+    }
+
+    .px-64{
+        font-size: 2.5rem;
+        line-height: 3rem;
+    }
+
+    .px-48{
+        font-size: 1.75rem;
+        line-height: 2rem;
+
+    }
+
+    .px-36{
+        font-size: 1.25rem;
+        line-height: 1.25rem;
+
+    }
+
+    .px-24{
+        font-size: 0.8rem;
+    }
+
+    .px-18{
+        font-size: 0.65rem;
+        line-height: 1rem;
+
+    }
+
+    .page-container{
+        padding-left:3rem;
+        padding-right:3rem
+    }
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+    /* 1px = 0.07vw */
+    .px-144{
+        font-size: 6rem;
+        line-height: 7rem;
+    }
+
+    .px-96{
+        font-size: 6rem;
+        line-height: 6rem;
+    }
+
+    .px-72{
+        font-size: 3.5rem;
+        line-height: 3.5rem;
+    }
+
+    .px-64{
+        font-size: 3rem;
+        line-height: 3.5rem;
+    }
+
+    .px-48{
+        font-size: 2.5rem;
+        line-height: 3rem;
+
+    }
+
+    .px-36{
+        font-size: 1.5rem;
+        line-height: 1.75rem;
+
+    }
+
+    .px-24{
+        font-size: 1.25rem;
+    }
+
+    .px-18{
+        font-size: 0.85rem;
+        line-height: 1rem;
+
+    }
+
+    .page-container{
+        padding-left:5rem;
+        padding-right:5rem
+    }
+ 
+}
