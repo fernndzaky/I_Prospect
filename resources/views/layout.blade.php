@@ -47,7 +47,10 @@
             </li>
           </ul>
           <div style="margin-top:2vw">
-            <a href="/" class="btn-grey px-24" type="submit" style="width:100%;text-align:center;text-decoration:none">Sign Out  </a>
+            <form action="{{ route('signout') }}" method="post">
+                @csrf
+                <button type="submit" class="btn-grey px-24" style="width:100%;text-align:center;text-decoration:none">Sign Out  </button>
+            </form>
           </div>
         </div>
       <!-- END OF LEFT SIDEBAR -->

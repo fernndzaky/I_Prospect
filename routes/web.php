@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth/signin');
-});
-Route::get('/signup', function () {
-    return view('auth/signup');
-});
+
+Route::get('/signin',[LoginController::class, 'index']);
+Route::post('/signin', [LoginController::class, 'authenticate'])->name('signin');
+Route::post('/signout', [LoginController::class, 'logout'])->name('signout');
+
+
+Route::get('/signup',[RegisterController::class, 'index']);
+Route::post('/register',[RegisterController::class, 'store'])->name('signup');
 
 
 Route::get('/supervisor', function () {

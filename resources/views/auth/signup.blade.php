@@ -42,31 +42,71 @@ Unauthorised or improper use of this system may result in disciplinary or legal 
                         <img src="assets/iProspect_Logo.png" class="img-fluid" style="width:12vw" alt="IProspect_Logo">
                     </div>
                     <div style="margin-top:4vw">
-                        <form action="">
+                        <form action="{{ route('signup') }}" method="post">
+                            @csrf
                             <!-- START OF ONE INPUT -->
                             <div>
                                 <p class="px-24" style="margin-bottom:0.5vw">Name</p>
-                                <input type="text" class="px-24" style="width:100%;padding:0vw 0.4vw" placeholder="Insert your full name">
+                                <input type="text" name="name" class=" px-24 @error('name') is-invalid @enderror" 
+                                style="width:100%;padding:0vw 0.4vw" placeholder="Insert your name" required autofocus 
+                                value="{{old('name')}}">
+                                @error('name')
+                                    <strong class="px-18" style="color:red">{{ $message }}</strong>
+                                @enderror
                             </div>
+                            <!-- END OF ONE INPUT -->
+
                             <!-- START OF ONE INPUT -->
-                            <!-- START OF ONE INPUT -->
-                            <div>
+                            <div style="margin-top:1vw">
                                 <p class="px-24" style="margin-bottom:0.5vw">Email Address</p>
-                                <input type="email" class="px-24" style="width:100%;padding:0vw 0.4vw" placeholder="Insert your email">
+                                <input type="email" name="email" class="px-24" 
+                                style="width:100%;padding:0vw 0.4vw" placeholder="Insert your email" autofocus required
+                                value="{{old('email')}}">
+                                @error('email')
+                                    <strong class="px-18" style="color:red">{{ $message }}</strong>
+                                @enderror
                             </div>
-                            <!-- START OF ONE INPUT -->
+                            <!-- END OF ONE INPUT -->
+
                             <!-- START OF ONE INPUT -->
                             <div style="margin-top:1vw">
                                 <p class="px-24" style="margin-bottom:0.5vw">Password</p>
-                                <input type="password" class="px-24" style="width:100%;padding:0vw 0.4vw" placeholder="Insert your password">
+                                <input type="password" name="password" class="px-24" 
+                                style="width:100%;padding:0vw 0.4vw" placeholder="Insert your password" autofocus required
+                                value="{{old('password')}}">
+                                @error('password')
+                                    <strong class="px-18" style="color:red">{{ $message }}</strong>
+                                @enderror
                             </div>
                             <!-- END OF ONE INPUT -->
+
                             <!-- START OF ONE INPUT -->
-                            <div>
+                            <div style="margin-top:1vw">
                                 <p class="px-24" style="margin-bottom:0.5vw">Occupancy</p>
-                                <input type="text" class="px-24" style="width:100%;padding:0vw 0.4vw" placeholder="Insert your occupancy">
+                                <input type="text" name="occupancy" class="px-24" 
+                                style="width:100%;padding:0vw 0.4vw" placeholder="Insert your occupancy" autofocus required
+                                value="{{old('occupancy')}}">
+                                @error('occupancy')
+                                    <strong class="px-18" style="color:red">{{ $message }}</strong>
+                                @enderror
                             </div>
+                            <!-- END OF ONE INPUT -->
+
                             <!-- START OF ONE INPUT -->
+                            <div style="margin-top:1vw">
+                                <p class="px-24" style="margin-bottom:0.5vw">Role</p>
+                                <select name="user_type_id" class="px-24" id="user_type_id"
+                                value="{{old('user_type_id')}}" style="width:100%;padding:0vw 0.4vw" required>
+                                    <option disabled selected>Please pick user role</option>
+                                    <option value="1">Supervisor</option>
+                                    <option value="2">Intern or Freelancer</option>
+                                </select>
+                                @error('user_type_id')
+                                    <strong class="px-18" style="color:red">{{ $message }}</strong>
+                                @enderror
+                            </div>
+                            <!-- END OF ONE INPUT -->
+
                             <div style="margin-top:2vw;text-align:center">
                                 <button class="btn-grey px-24" type="submit" style="width:10vw">Sign Up</button>
                             </div>
@@ -77,7 +117,7 @@ Unauthorised or improper use of this system may result in disciplinary or legal 
                 <!-- START OF BOTTOM SECTION -->
                 <div style="margin-top:1.5vw;text-align:center">
                     <p class="px-18" style="margin-bottom:0px">Already have an account?</p>
-                    <a href="/" class="px-18">Sign in</a>
+                    <a href="/signin" class="px-18">Sign in</a>
                 </div>
                 <div style="text-align:right;margin-top:1vw">
                     <img src="assets/iProspect_Squared_Logo.png" class="img-fluid" style="width:3vw" alt="IProspect_Logo_Square">

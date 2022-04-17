@@ -40,19 +40,41 @@ Unauthorised or improper use of this system may result in disciplinary or legal 
                 <div style="padding:0vw 2vw">
                     <div style="text-align:center">
                         <img src="assets/iProspect_Logo.png" class="img-fluid" style="width:12vw" alt="IProspect_Logo">
+                        @if(session()->has('regiterSuccess'))
+                        <p class="px-24" style="margin-bottom:0.5vw;color:green">Sign Up Successful! <br> Please Sign In</p>
+                        @endif
                     </div>
                     <div style="margin-top:4vw">
-                        <form action="">
+                        <form action="{{ route('signin') }}" method="post">
+                            @csrf
                             <!-- START OF ONE INPUT -->
                             <div>
                                 <p class="px-24" style="margin-bottom:0.5vw">Email Address</p>
-                                <input type="email" class="px-24" style="width:100%;padding:0vw 0.4vw" placeholder="Insert your email">
+                                <input type="email" name="email" class="px-24" 
+                                style="width:100%;padding:0vw 0.4vw" placeholder="Insert your email" autofocus required
+                                value="{{old('email')}}">
+                                @error('email')
+                                    <strong class="px-18" style="color:red">Invalid email</strong>
+                                @enderror
                             </div>
                             <!-- END OF ONE INPUT -->
                             <!-- START OF ONE INPUT -->
                             <div style="margin-top:1vw">
                                 <p class="px-24" style="margin-bottom:0.5vw">Password</p>
-                                <input type="password" class="px-24" style="width:100%;padding:0vw 0.4vw" placeholder="Insert your password">
+                                <input type="password" name="password" class="px-24" 
+                                style="width:100%;padding:0vw 0.4vw" placeholder="Insert your password" required
+                                value="{{old('password')}}">
+                                @error('password')
+                                <strong class="px-18" style="color:red">Invalid password</strong>
+                                @enderror
+
+                                
+                                @if(session()->has('loginError'))
+                                <div style="text-align:center">
+                                    <strong class="px-18" style="color:red">{{session('loginError')}}</strong>
+                                </div>
+                                @enderror
+
                             </div>
                             <!-- END OF ONE INPUT -->
                             <div style="margin-top:2vw;text-align:center">
