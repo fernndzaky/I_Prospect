@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'occupancy',
         'user_type_id',
+        'avatar',
     ];
 
     /**
@@ -48,4 +49,19 @@ class User extends Authenticatable
     public function userRole() {
         return $this->belongsTo(userType::class);
     }
+
+    //public function employees() {
+        //return $this->belongsToMany(User::class, 'assigned_employees')->withTimestamps();
+    //}
+
+    public function employees()
+    {
+        return $this->belongsToMany(User::class, 'assigned_employees', 'user_id', 'supervised_id');
+    }
+
+    public function supervisor()
+    {
+        return $this->belongsToMany(User::class, 'assigned_employees', 'user_id', 'supervised_id');
+    }
+
 }

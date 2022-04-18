@@ -25,10 +25,14 @@
           </div>
           <div style="display:flex;align-items:center">
               <div style="text-align:right">
-                <p class="px-24" style="font-weight:bold;color:#92D050;margin-bottom:0px" >Welcome, <br> Fauzan</p>
+                <p class="px-24" style="font-weight:bold;color:#92D050;margin-bottom:0px" >Welcome, <br> {{auth()->user()->name}}</p>
               </div>
               <div style="margin-left:1vw">
+                @if(auth()->user()->avatar)
+                <img src="/{{auth()->user()->avatar}}" class="img-fluid" style="height:3vw" alt="User_Icon">
+                @else
                 <img src="/assets/User_Icon.png" class="img-fluid" style="height:3vw" alt="User_Icon">
+                @endif
               </div>
           </div>
         </div>
@@ -39,11 +43,34 @@
       <!-- START OF LEFT SIDEBAR -->
         <div class="col-md-2" style="background-color:#92D050;padding:2vw;">
           <ul>
+
+            <!-- IF USER IS SUPERVISOR -->
+            @if(Auth::user()->user_type_id == 1)
             <li style="color:#ffffff;margin-top:2vw">
-              <a href="/supervisor"  class="px-24 sidebar-item" style="color:#ffffff;text-decoration:none">List of Supervision</a>
+              <a href="/dashboard"  class="px-24 sidebar-item" style="color:#ffffff;text-decoration:none;
+              @if( Request::is('dashboard') )
+              font-weight:bold;
+              @endif
+              ">
+              List of Supervision</a>
             </li>
+
+            <!-- IF USER IS INTERN OF FREELANCER -->
+            @else
             <li style="color:#ffffff;margin-top:2vw">
-              <a href="/profile" class="px-24 sidebar-item" style="color:#ffffff;text-decoration:none">Account Info</a>
+              <a href="/dashboard"  class="px-24 sidebar-item" style="color:#ffffff;text-decoration:none;
+              @if( Request::is('dashboard') )
+              font-weight:bold;
+              @endif
+              ">Timesheet List</a>
+            </li>
+            @endif
+
+            <li style="color:#ffffff;margin-top:2vw">
+              <a href="/profile" class="px-24 sidebar-item" style="color:#ffffff;text-decoration:none;
+              @if( Request::is('profile') )
+              font-weight:bold;
+              @endif">Account Info</a>
             </li>
           </ul>
           <div style="margin-top:2vw">
@@ -63,7 +90,19 @@
     </div>
     <!-- END OF BODY -->
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- START OF SCRIPT FOR CUSTOM FILE UPLOAD -->
+    <script>
+    $('#file-upload').change(function() {
+        console.log('Test')
+        var i = $(this).prev('label').clone();
+        var file = $('#file-upload')[0].files[0].name;
+        $(this).prev('label').text(file);
+    });
+    </script>
+    <!-- END OF SCRIPT OF FILE UPLOAD -->
 </body>
 </html>

@@ -13,12 +13,31 @@
                 <div class="col-12">
                     <p class="px-24" style="font-weight:bold;color:#92D050;margin-bottom:0px" >New Supervised Employee</p>
                     <!-- START OF FORM -->
-                    <form action="" style="margin-top:2vw">
-                        <select class="px-24" name="" id="" style="width:100%;padding:0.5vw">
+                    <form action="{{route('add-employee')}}" method="post" style="margin-top:2vw">
+                    @csrf
+                        <select class="px-24" name="employee_id" style="width:100%;padding:0.5vw">
                             <option value="" disabled selected>Please select an employee</option>
-                            <option value="">Athallah</option>
+                            @foreach($users as $user)
+
+                            <option value="{{$user->id}}"
+                            @if(old('employee_id') == $user->id) selected @endif
+                            >{{$user->name}}</option>
+
+                            @endforeach
                         </select>
                         <div style="text-align:center">
+
+                            @if(session()->has('attachError'))
+                            <div style="text-align:center">
+                                <strong class="px-18" style="color:red">{{session('attachError')}}</strong>
+                            </div>
+                            @enderror
+                            @if(session()->has('attachSuccess'))
+                            <div style="text-align:center">
+                                <strong class="px-18" style="color:green">{{session('attachSuccess')}}</strong>
+                            </div>
+                            @enderror
+
                             <button class="btn-grey px-24" type="submit" style="margin-top:2vw;padding-left:2vw;padding-right:2vw;margin-bottom:1vw">Confirm</button>
                             <br>
                             <a href="#" class="btn-grey px-24"style="width:auto;text-align:center;text-decoration:none;padding-left:2vw;padding-right:2vw">Cancel</a>
@@ -56,36 +75,33 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- START OF EMPLOYEE LIST -->
+                @foreach($supervised_employees as $employee)
                 <tr>
                     <td class="ps-0">
-                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;">Fauzan Athallah Arief</p>
+                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;">{{$employee->name}}</p>
                     </td>
                     <td class="ps-0">
                         <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;color:#FF0101">Need Approval</p>
                     </td>
                     <td class="ps-0">
                         <div style=";padding:1vw 2vw;display:flex;justify-content:space-between">
-                            <a href="/supervisor/employee/1" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#3D5BC6;text-decoration:none;padding:0.5vw 1vw">See Timesheet Detail</a>
+                            <a href="/supervisor/employee/{{$employee->id}}" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#3D5BC6;text-decoration:none;padding:0.5vw 1vw">See Timesheet Detail</a>
                             <a href="/" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#FF0101;text-decoration:none;padding:0.5vw 1vw">Remove from list</a>
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td class="ps-0">
-                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;">Septiano Pratama</p>
-                    </td>
-                    <td class="ps-0">
-                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;color:#3A8D1C">Complete</p>
-                    </td>
-                    <td class="ps-0">
-                        <div style=";padding:1vw 2vw;display:flex;justify-content:space-between">
-                            <a href="/supervisor/employee/1" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#3D5BC6;text-decoration:none;padding:0.5vw 1vw">See Timesheet Detail</a>
-                            <a href="/" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#FF0101;text-decoration:none;padding:0.5vw 1vw">Remove from list</a>
-                        </div>
-                    </td>
-                </tr>
+                @endforeach
+                <!-- END OF EMPLOYEE LIST -->
             </tbody>
         </table>
+
+        <!-- IF THERE IS NO SUPERVISED EMPLOYEES -->
+        @if(!count($supervised_employees))
+        <div style="text-align:center">
+            <p class="px-24" style="margin-bottom:0.5vw">You have no employee to be supervised..</p>
+        </div>
+        @endif
     </div>
     <!-- END OF TABLE -->
 </div>

@@ -31,7 +31,24 @@ body, html {
 }
 
 /*POP UP*/
-  
+
+
+/* START OF CUSTOM INPUT FILE*/
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    background-color:#615D5D;
+    border:0px;
+    padding:0.5vw 1vw;
+    border-radius:2vw;
+    color:#FFFFFF;
+    cursor: pointer;
+}
+
+/* END OF CUSTOM INPUT TYPE FILE */
+
 .overlay {
     position: fixed;
     z-index: 99;

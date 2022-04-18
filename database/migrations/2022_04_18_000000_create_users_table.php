@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('occupancy');
+            $table->string('avatar')->nullable();
             $table->unsignedBigInteger('user_type_id')->nullable()->default(1);
             $table->foreign('user_type_id')->references('id')->on('user_types')->onDelete('set null');
             $table->rememberToken();
