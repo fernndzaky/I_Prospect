@@ -14,7 +14,6 @@ class DashboardController extends Controller
         //if supervisor
         if(Auth::user()->user_type_id == 1){
             //get all employee
-
             $users = User::where('user_type_id',2)->get();
 
             //get all supervised employees

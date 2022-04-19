@@ -64,4 +64,8 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'assigned_employees', 'user_id', 'supervised_id');
     }
 
+    public function timesheets() {
+        return $this->hasMany(Timesheet::class);
+    }
+
 }

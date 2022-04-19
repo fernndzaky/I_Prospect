@@ -12,7 +12,10 @@ body, html {
 }
 
 .btn-grey{  
-    background-color:#615D5D;border:0px;padding:0.5vw 1vw;border-radius:2vw;color:#FFFFFF;
+    background-color:#615D5D;border:0px;padding:0.5vw 2vw;border-radius:2vw;color:#FFFFFF;
+}
+.btn-orange{  
+    background-color:#FF9901;border:0px;padding:0.5vw 2vw;border-radius:2vw;color:#FFFFFF;
 }
 .btn-green{  
     background-color:#92D050;border:0.2vw solid #3A8D1C;padding:0.5vw 1vw;border-radius:1.2vw;color:#FFFFFF;padding:0.5vw 2vw;
@@ -33,21 +36,6 @@ body, html {
 /*POP UP*/
 
 
-/* START OF CUSTOM INPUT FILE*/
-input[type="file"] {
-    display: none;
-}
-
-.custom-file-upload {
-    background-color:#615D5D;
-    border:0px;
-    padding:0.5vw 1vw;
-    border-radius:2vw;
-    color:#FFFFFF;
-    cursor: pointer;
-}
-
-/* END OF CUSTOM INPUT TYPE FILE */
 
 .overlay {
     position: fixed;

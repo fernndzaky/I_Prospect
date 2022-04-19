@@ -3,9 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SupervisorController;
+use App\Http\Controllers\InternFreelancerController;
+use App\Http\Controllers\TimesheetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +21,8 @@ use App\Http\Controllers\SupervisorController;
 |
 */
 
+
+Route::get('/',[HomeController::class, 'redirect']);
 
 //ROUTING FOR ALL USERS THAT NOT YET LOGGED IN
 Route::middleware(['guest'])->group(function () {
@@ -40,24 +45,27 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard',[DashboardController::class, 'index']);
     Route::get('/profile',[UserController::class, 'index'])->name('user-profile');
     Route::put('/profile',[UserController::class, 'update_profile'])->name('update-profile');
+    
+    Route::get('/timesheet/{timesheet_id}',[TimesheetController::class, 'index']);
 
+});
+
+//ROUTING FOR ALL INTERNS OR FREELANCER
+Route::middleware(['isInternOrFreelancer'])->group(function () {
+    Route::get('/timesheet/update/{timesheet_id}', [InternFreelancerController::class, 'edit'])->name('edit-timesheet');
+    Route::get('/dashboard/create-timesheet', [InternFreelancerController::class, 'create'])->name('create-timesheet');
+    Route::post('/dashboard/create-timesheet', [InternFreelancerController::class, 'store'])->name('store-timesheet');
 });
 
 //ROUTING FOR ALL SUPERVISORS
 Route::middleware(['isSupervisor'])->group(function () {
-
+    Route::get('/employee/{employee_id}', [SupervisorController::class, 'employeeTimesheetList'])->name('employee-timesheet-list');
+    Route::delete('/dashboard/{employee_id}', [SupervisorController::class, 'removeEmployee'])->name('remove-employee');
     Route::post('/dashboard/add-employee', [SupervisorController::class, 'addEmployee'])->name('add-employee');
-
-
 });
 
 
 
-Route::get('/supervisor/employee/1', function () {
-    return view('supervisor/employee-detail');
-});
 
-Route::get('/timesheet/1', function () {
-    return view('timesheet-detail');
-});
+
 

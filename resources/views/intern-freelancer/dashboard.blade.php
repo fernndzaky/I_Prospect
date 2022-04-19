@@ -10,7 +10,7 @@
     <div class="col-12 p-0">
         <div style="padding:1vw 2vw;background:#F1F1F1;margin-top:4vw;border-radius:1vw;display:flex;align-items:center;justify-content:space-between">
             <p class="px-36" style="font-weight:bold;color:#92D050;margin-bottom:0px" >Timesheet</p>
-            <a href="#new-employee" class="btn-grey px-24"style="width:auto;text-align:center;text-decoration:none;padding-left:2vw;padding-right:2vw">Add New</a>
+            <a href="{{route('create-timesheet')}}" class="btn-grey px-24"style="width:auto;text-align:center;text-decoration:none;padding-left:2vw;padding-right:2vw">Add New</a>
     
         </div>
     </div>
@@ -21,6 +21,11 @@
         
     <!-- START OF TABLE -->
     <div class="col-12 p-0" style="margin-top:2vw;">
+        @if(session()->has('createSuccess'))
+        <div style="text-align:center;padding-bottom:1vw">
+            <p class="px-24" style="color:green">{{session('createSuccess')}}</p>
+        </div>
+        @endif
         <div class="dataTables_length" id="show_entries" style="margin-bottom:1vw">
             <p class="px-24 mb-0">Filter By:</p>
             <select aria-controls="dataTable" class="px-18" onchange="if (this.value) window.location.href=this.value">
@@ -41,34 +46,43 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- START OF ONE TIME SHEET -->
+                @foreach(auth()->user()->timesheets as $timesheet)
                 <tr>
                     <td class="ps-0">
-                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;">1 February 2022 - 11 February 2022</p>
+                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;">{{date('d-M-Y', strtotime($timesheet->start_date))}} - {{date('d-M-Y', strtotime($timesheet->end_date))}}</p>
                     </td>
                     <td class="ps-0">
-                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;color:#FF0101">Need Approval</p>
+                        @if($timesheet->time_sheet_status == 'Waiting for Approval')
+                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;color:#FF9901">{{$timesheet->time_sheet_status}}</p>
+                        @elseif($timesheet->time_sheet_status == 'In Progress')
+                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;color:#FF9901">{{$timesheet->time_sheet_status}}</p>
+                        @elseif($timesheet->time_sheet_status == 'Approved')
+                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;color:#3A8D1C">{{$timesheet->time_sheet_status}}</p>
+                        @else
+                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;color:#FF0101">{{$timesheet->time_sheet_status}}</p>
+                        @endif
                     </td>
                     <td class="ps-0">
                         <div style=";padding:1vw 2vw;">
-                            <a href="/timesheet/1" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#3D5BC6;text-decoration:none;padding:0.5vw 1vw">See Detail</a>
+                            @if($timesheet->time_sheet_status == 'In Progress')
+                            <a href="/timesheet/update/{{$timesheet->id}}" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#3D5BC6;text-decoration:none;padding:0.5vw 1vw">See Detail</a>
+                            @else
+                            <a href="/timesheet/{{$timesheet->id}}" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#3D5BC6;text-decoration:none;padding:0.5vw 1vw">See Detail</a>
+                            @endif
                         </div>
                     </td>
                 </tr>
-                <tr>
-                    <td class="ps-0">
-                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;">12 February 2022 - 20 February 2022</p>
-                    </td>
-                    <td class="ps-0">
-                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;color:#3A8D1C">Complete</p>
-                    </td>
-                    <td class="ps-0">
-                        <div style=";padding:1vw 2vw;">
-                            <a href="/timesheet/1" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#3D5BC6;text-decoration:none;padding:0.5vw 1vw">See Detail</a>
-                        </div>                    
-                    </td>
-                </tr>
+                @endforeach
+                <!-- END OF ONE TIME SHEET -->
             </tbody>
         </table>
+        <!-- IF THERE IS NO SUPERVISED EMPLOYEES -->
+        @if(!count(auth()->user()->timesheets))
+        <div style="text-align:center">
+            <p class="px-24" style="margin-bottom:0.5vw">You have no timesheets record..</p>
+        </div>
+        @endif
     </div>
     <!-- END OF TABLE -->
 </div>

@@ -4,6 +4,24 @@
 
 
 @section('container')
+<style>
+
+/* START OF CUSTOM INPUT FILE*/
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    background-color:#615D5D;
+    border:0px;
+    padding:0.5vw 1vw;
+    border-radius:2vw;
+    color:#FFFFFF;
+    cursor: pointer;
+}
+
+/* END OF CUSTOM INPUT TYPE FILE */
+</style>
 
 <!-- START OF FORM -->
 <form action="{{ route('update-profile') }}" method="post" enctype="multipart/form-data">
@@ -71,7 +89,7 @@
                             <label for="file-upload" class="custom-file-upload px-24">
                                 <i class="fa fa-cloud-upload"></i> Upload Image
                             </label>
-                            <input id="file-upload" name='avatar' type="file" style="display:none;">
+                            <input id="file-upload" accept=".jpeg,.jpg,.png" name='avatar' type="file" style="display:none;">
                             <br>
                             @error('avatar')
                                 <strong class="px-18" style="color:red">lorem</strong>

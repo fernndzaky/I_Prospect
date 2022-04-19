@@ -65,8 +65,13 @@
     <!-- END OF HEADER -->
     
     <!-- START OF TABLE -->
-    <div class="col-12 p-0">
-        <table class="table" style="padding:1vw 2vw;background:#F1F1F1;margin-top:2vw;border-radius:1vw;">
+    <div class="col-12 p-0" style=";margin-top:2vw;">
+        @if(session()->has('removeSuccecss'))
+        <div style="text-align:center;padding-bottom:1vw">
+            <p class="px-24" style="color:green">{{session('removeSuccecss')}}</p>
+        </div>
+        @endif
+        <table class="table" style="padding:1vw 2vw;background:#F1F1F1;border-radius:1vw;">
             <thead>
                 <tr>
                     <th scope="col" class="px-36" style="font-weight:bold;color:#92D050;padding:1vw 2vw;">Name</th>
@@ -86,8 +91,12 @@
                     </td>
                     <td class="ps-0">
                         <div style=";padding:1vw 2vw;display:flex;justify-content:space-between">
-                            <a href="/supervisor/employee/{{$employee->id}}" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#3D5BC6;text-decoration:none;padding:0.5vw 1vw">See Timesheet Detail</a>
-                            <a href="/" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#FF0101;text-decoration:none;padding:0.5vw 1vw">Remove from list</a>
+                            <a href="/employee/{{$employee->id}}" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#3D5BC6;text-decoration:none;padding:0.5vw 1vw">See Timesheet List</a>
+                            <form action="{{ route('remove-employee', $employee->id) }}" method="post">
+                            @csrf
+                            @method('delete')
+                                <button onclick="return confirm('Are you sure you want to remove this employee from your list?')" type="submit" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#FF0101;padding:0.5vw 1vw">Remove from list</button>
+                            </form>
                         </div>
                     </td>
                 </tr>
