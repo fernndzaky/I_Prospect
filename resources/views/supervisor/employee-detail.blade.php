@@ -60,6 +60,12 @@
         </table>
     </div>
     <!-- END OF TABLE -->
+    
+    <!-- START OF PAGINATION -->
+    <div class="col-md-12 d-flex justify-content-center px-18">
+            {{$timesheets->links('pagination::bootstrap-4')}}
+    </div>
+    <!-- END OF PAGINATION -->
 
     <!-- IF THERE IS NO SUPERVISED EMPLOYEES -->
     @if(!count($timesheets))

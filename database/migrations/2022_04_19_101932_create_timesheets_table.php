@@ -21,6 +21,7 @@ class CreateTimesheetsTable extends Migration
             $table->date('end_date');
             $table->integer('total_working_hours');
             $table->enum('time_sheet_status', ['Waiting for Approval', 'Approved', 'Rejected', 'In Progress']);
+            $table->string('signed_by')->nullable();
             $table->timestamps();
         });
     }

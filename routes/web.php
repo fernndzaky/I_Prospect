@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile',[UserController::class, 'update_profile'])->name('update-profile');
     
     Route::get('/timesheet/{timesheet_id}',[TimesheetController::class, 'index']);
+    Route::put('/timesheet/update-status', [SupervisorController::class, 'updateTimeSheetStatus'])->name('update-timesheet-status');
 
 });
 

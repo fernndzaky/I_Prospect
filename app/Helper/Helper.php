@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\ImageManagerStatic as ImageManager;
 use Exception;
+use App\Models\Timesheet;
 
 
 class Helper
@@ -68,6 +69,24 @@ class Helper
             ->where('user_id', $supervisor_id)
             ->where('supervised_id', $employee_id)
             ->count() > 0;
+    }
+
+    public static function updateAssignEmployeeStatus($supervisor_id, $employee_id){
+        $assigned_employee = DB::table('assigned_employees')
+                            ->where('user_id', $supervisor_id)
+                            ->where('supervised_id', $employee_id);
+                            
+        
+        $isNeedApproval = Timesheet::where('user_id', $employee_id)
+                                    ->where('time_sheet_status', 'Waiting for Approval')->count() > 0;
+                                    
+        if($isNeedApproval){
+            $assigned_employee->update(['status' => 'Need Approval']);
+        }
+        else{
+            $assigned_employee->update(['status' => 'Completed']);
+
+        }
     }
 
 }

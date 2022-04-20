@@ -54,15 +54,22 @@ class User extends Authenticatable
         //return $this->belongsToMany(User::class, 'assigned_employees')->withTimestamps();
     //}
 
-    public function employees()
-    {
-        return $this->belongsToMany(User::class, 'assigned_employees', 'user_id', 'supervised_id');
+    public function employees() {
+        return $this->belongsToMany(User::class, 'assigned_employees', 'user_id', 'supervised_id')
+            ->withPivot('status','user_name') // need approval, completed
+            ->withTimestamps();
     }
 
-    public function supervisor()
-    {
-        return $this->belongsToMany(User::class, 'assigned_employees', 'user_id', 'supervised_id');
+    public function supervisor() {
+        return $this->belongsToMany(User::class, 'assigned_employees', 'user_id', 'supervised_id')
+            ->withPivot('status','user_name') // need approval, completed
+            ->withTimestamps();
     }
+
+    //public function supervisor()
+    //{
+        //return $this->belongsToMany(User::class, 'assigned_employees', 'user_id', 'supervised_id');
+    //}
 
     public function timesheets() {
         return $this->hasMany(Timesheet::class);

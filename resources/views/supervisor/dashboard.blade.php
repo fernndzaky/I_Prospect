@@ -84,15 +84,19 @@
                 @foreach($supervised_employees as $employee)
                 <tr>
                     <td class="ps-0">
-                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;">{{$employee->name}}</p>
+                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;">{{$employee->user_name}}</p>
                     </td>
                     <td class="ps-0">
-                        <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;color:#FF0101">Need Approval</p>
+                        @if($employee->status == 'Need Approval')
+                            <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;color:#FF0101">{{$employee->status}}</p>
+                        @else
+                            <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;color:#3A8D1C">{{$employee->status}}</p>
+                        @endif
                     </td>
                     <td class="ps-0">
                         <div style=";padding:1vw 2vw;display:flex;justify-content:space-between">
-                            <a href="/employee/{{$employee->id}}" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#3D5BC6;text-decoration:none;padding:0.5vw 1vw">See Timesheet List</a>
-                            <form action="{{ route('remove-employee', $employee->id) }}" method="post">
+                            <a href="/employee/{{$employee->supervised_id}}" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#3D5BC6;text-decoration:none;padding:0.5vw 1vw">See Timesheet List</a>
+                            <form action="{{ route('remove-employee', $employee->supervised_id) }}" method="post">
                             @csrf
                             @method('delete')
                                 <button onclick="return confirm('Are you sure you want to remove this employee from your list?')" type="submit" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#FF0101;padding:0.5vw 1vw">Remove from list</button>
@@ -104,6 +108,12 @@
                 <!-- END OF EMPLOYEE LIST -->
             </tbody>
         </table>
+
+        <!-- START OF PAGINATION -->
+        <div class="col-md-12 d-flex justify-content-center px-18">
+            {{$supervised_employees->links('pagination::bootstrap-4')}}
+        </div>
+        <!-- END OF PAGINATION -->
 
         <!-- IF THERE IS NO SUPERVISED EMPLOYEES -->
         @if(!count($supervised_employees))

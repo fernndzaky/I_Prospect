@@ -17,7 +17,8 @@ class SupervisorController extends Controller
         if(!Helper::isEmployeeSupervised($request->employee_id)){
 
             //attach intern or freelancer to supervisor
-            auth()->user()->employees()->attach($request->employee_id);
+            $user_name = User::where('id', $request->employee_id)->value('name');
+            auth()->user()->employees()->attach($request->employee_id,['user_name' => $user_name]);
             return redirect('/dashboard#new-employee')->with('attachSuccess', 'The employee has been assigned!')->withInput();;
         }
         
@@ -37,12 +38,28 @@ class SupervisorController extends Controller
         $timesheets = Timesheet::where('user_id',$employee_id)
         ->where('time_sheet_status','!=','In Progress')
         ->orderBy('end_date','DESC')
-        ->get();
+        ->paginate(5);
 
 
         //get user detail
         $user = User::findOrFail($employee_id);
         return view('supervisor/employee-detail', compact('timesheets','user'));
+    }
+
+    public function updateTimeSheetStatus(Request $request){
+        $timesheet = Timesheet::findOrFail($request->timesheet_id);
+        $timesheet->time_sheet_status = $request->update_type;
+        
+        if($request->update_type == 'In Progress'){
+            $timesheet->save();
+            return redirect('/timesheet/update/'.$request->timesheet_id);
+        }
+        else{
+            $timesheet->signed_by = auth()->user()->name;
+            $timesheet->save();
+        }
+        return redirect()->back();
+
     }
     
 }

@@ -31,10 +31,10 @@
             <select aria-controls="dataTable" class="px-18" onchange="if (this.value) window.location.href=this.value">
                 <option value=""  selected disabled>Please choose filter</option>
                 <option value="{{ request()->fullUrlWithQuery(['filter' => 'all']) }}" @if (Request::get('filter') == 'all') selected @endif>Show All</option>
-                <option value="{{ request()->fullUrlWithQuery(['filter' => 'waitingForApproval']) }}" @if (Request::get('filter') == 'waitingForApproval') selected @endif>Waiting For Approval</option>
-                <option value="{{ request()->fullUrlWithQuery(['filter' => 'inProgress']) }}" @if (Request::get('filter') == 'inProgress') selected @endif>In Progress</option>
-                <option value="{{ request()->fullUrlWithQuery(['filter' => 'approved']) }}" @if (Request::get('filter') == 'approved') selected @endif>Approved</option>
-                <option value="{{ request()->fullUrlWithQuery(['filter' => 'rejected']) }}" @if (Request::get('filter') == 'rejected') selected @endif>Rejected</option>
+                <option value="{{ request()->fullUrlWithQuery(['filter' => 'Waiting for Approval']) }}" @if (Request::get('filter') == 'Waiting for Approval') selected @endif>Waiting For Approval</option>
+                <option value="{{ request()->fullUrlWithQuery(['filter' => 'In Progress']) }}" @if (Request::get('filter') == 'In Progress') selected @endif>In Progress</option>
+                <option value="{{ request()->fullUrlWithQuery(['filter' => 'Approved']) }}" @if (Request::get('filter') == 'Approved') selected @endif>Approved</option>
+                <option value="{{ request()->fullUrlWithQuery(['filter' => 'Rejected']) }}" @if (Request::get('filter') == 'Rejected') selected @endif>Rejected</option>
             </select>
         </div>
         <table class="table" style="padding:1vw 2vw;background:#F1F1F1;border-radius:1vw;">
@@ -47,7 +47,7 @@
             </thead>
             <tbody>
                 <!-- START OF ONE TIME SHEET -->
-                @foreach(auth()->user()->timesheets as $timesheet)
+                @foreach($timesheets as $timesheet)
                 <tr>
                     <td class="ps-0">
                         <p class="px-18 mb-0" style="font-weight:bold;padding:1vw 2vw;">{{date('d-M-Y', strtotime($timesheet->start_date))}} - {{date('d-M-Y', strtotime($timesheet->end_date))}}</p>
@@ -77,10 +77,17 @@
                 <!-- END OF ONE TIME SHEET -->
             </tbody>
         </table>
+
+        <!-- START OF PAGINATION -->
+        <div class="col-md-12 d-flex justify-content-center px-18">
+            {{$timesheets->links('pagination::bootstrap-4')}}
+        </div>
+        <!-- END OF PAGINATION -->
+        
         <!-- IF THERE IS NO SUPERVISED EMPLOYEES -->
-        @if(!count(auth()->user()->timesheets))
+        @if(!count($timesheets))
         <div style="text-align:center">
-            <p class="px-24" style="margin-bottom:0.5vw">You have no timesheets record..</p>
+            <p class="px-24" style="margin-bottom:0.5vw">Sorry, no timesheets record found..</p>
         </div>
         @endif
     </div>

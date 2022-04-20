@@ -20,6 +20,8 @@ class CreateAssignedEmployeesTable extends Migration
             $table->bigInteger('supervised_id')->unsigned()->index(); // this is working
             $table->foreign('supervised_id')->references('id')->on('users')->nullable()->onDelete('cascade');;
 
+            $table->enum('status', ['Need Approval', 'Completed'])->default('Need Approval');
+            $table->string('user_name');
             $table->primary(['user_id', 'supervised_id']);
             $table->timestamps();
         });

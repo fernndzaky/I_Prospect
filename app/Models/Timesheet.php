@@ -15,6 +15,7 @@ class Timesheet extends Model
         'end_date',
         'total_working_hours',
         'status_id',
+        'signed_by',
     ]; 
 
 
