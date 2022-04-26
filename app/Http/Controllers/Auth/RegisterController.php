@@ -87,15 +87,4 @@ class RegisterController extends Controller
 
         return redirect('/signin'); 
     }
-    protected function create(Request $request)
-    {
-
-        
-
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-    }
 }

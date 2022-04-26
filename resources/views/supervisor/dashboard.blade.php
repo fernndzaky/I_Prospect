@@ -4,6 +4,7 @@
 
 
 @section('container')
+@if(auth()->user()->user_type_id == 1)
 <!-- START OF POPUP ADD NEW SUPERVISED EMPLOYEE -->
 <div id="new-employee" class="overlay" style="overflow:scroll">
     <div class="popup" style="width:30% ">
@@ -51,13 +52,20 @@
     </div>
 </div>
 <!-- END OF POPUP ADD NEW SUPERVISED EMPLOYEE -->
+@endif
 
 <div class="row m-0 page-container" style="padding-bottom:8vw" >
 
     <!-- START OF HEADER -->
     <div class="col-12 p-0">
         <div style="padding:1vw 2vw;background:#F1F1F1;margin-top:4vw;border-radius:1vw;display:flex;align-items:center;justify-content:space-between">
-            <p class="px-36" style="font-weight:bold;color:#92D050;margin-bottom:0px" >List of Supervision</p>
+            <p class="px-36" style="font-weight:bold;color:#92D050;margin-bottom:0px" >
+            @if(auth()->user()->user_type_id == 1)
+            List of Supervision
+            @else
+            List of Employees
+            @endif
+        </p>
             <a href="#new-employee" class="btn-grey px-24"style="width:auto;text-align:center;text-decoration:none;padding-left:2vw;padding-right:2vw">Add New</a>
     
         </div>
@@ -96,11 +104,13 @@
                     <td class="ps-0">
                         <div style=";padding:1vw 2vw;display:flex;justify-content:space-between">
                             <a href="/employee/{{$employee->supervised_id}}" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#3D5BC6;text-decoration:none;padding:0.5vw 1vw">See Timesheet List</a>
+                            @if(auth()->user()->user_type_id == 1)
                             <form action="{{ route('remove-employee', $employee->supervised_id) }}" method="post">
                             @csrf
                             @method('delete')
                                 <button onclick="return confirm('Are you sure you want to remove this employee from your list?')" type="submit" class="px-18" style="font-weight:bold;background-color:#FFFFFF;border:1px solid black;border-radius:2vw;color:#FF0101;padding:0.5vw 1vw">Remove from list</button>
                             </form>
+                            @endif
                         </div>
                     </td>
                 </tr>
@@ -110,9 +120,11 @@
         </table>
 
         <!-- START OF PAGINATION -->
+        @if(auth()->user()->user_type_id == 1)
         <div class="col-md-12 d-flex justify-content-center px-18">
             {{$supervised_employees->links('pagination::bootstrap-4')}}
         </div>
+        @endif
         <!-- END OF PAGINATION -->
 
         <!-- IF THERE IS NO SUPERVISED EMPLOYEES -->

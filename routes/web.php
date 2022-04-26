@@ -28,12 +28,15 @@ Route::get('/',[HomeController::class, 'redirect']);
 Route::middleware(['guest'])->group(function () {
 
     //SIGN IN ROUTES
-    Route::get('/signin',[LoginController::class, 'index']);
+    Route::get('/forget-password',[LoginController::class, 'forgetPassword']);
+    Route::get('/signin',[LoginController::class, 'index'])->name('login');
     Route::post('/signin', [LoginController::class, 'authenticate'])->name('signin');
 
     //SIGN UP ROUTES
     Route::get('/signup',[RegisterController::class, 'index']);
     Route::post('/signup',[RegisterController::class, 'store'])->name('signup');
+    Route::post('/forget-password',[LoginController::class, 'sendNewPassword'])->name('forget-password');
+
 });
 
 
@@ -46,8 +49,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile',[UserController::class, 'index'])->name('user-profile');
     Route::put('/profile',[UserController::class, 'update_profile'])->name('update-profile');
     
-    Route::get('/timesheet/{timesheet_id}',[TimesheetController::class, 'index']);
+    Route::get('/timesheet/{timesheet_id}',[TimesheetController::class, 'index'])->name('timesheet-detail');
     Route::put('/timesheet/update-status', [SupervisorController::class, 'updateTimeSheetStatus'])->name('update-timesheet-status');
+
+    Route::post('/change-password', [UserController::class, 'changePassword'])->name('change-password');
 
 });
 
@@ -70,3 +75,7 @@ Route::middleware(['isSupervisor'])->group(function () {
 
 
 
+
+Route::get('/email/timesheetSubmission', function () {
+    return view('emails/timesheetSubmission');
+});

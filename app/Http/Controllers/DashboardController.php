@@ -29,10 +29,21 @@ class DashboardController extends Controller
             $supervised_employees = DB::table('assigned_employees')
                 ->where('user_id', auth()->user()->id)
                 ->paginate(5);
-
-    
-
+                
             return view('supervisor/dashboard', compact('users', 'supervised_employees'));
+        }
+        //if human resource department
+        elseif(Auth::user()->user_type_id == 3){
+            //get all supervised employees
+            $supervised_employees = DB::table('assigned_employees')
+            ->paginate(5)
+            ->unique('supervised_id');
+            
+            //update all timesheet status
+            Helper::updateAllTimesheetStatus();
+
+            return view('supervisor/dashboard', compact('supervised_employees'));
+            
         }
         //if intern or freelancer
         else{

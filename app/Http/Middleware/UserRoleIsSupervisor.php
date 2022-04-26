@@ -21,6 +21,6 @@ class UserRoleIsSupervisor
     }
 
     private function isUserSupervisor() {
-        return Auth::user()->user_type_id == 1;
+        return Auth::user()->user_type_id != 2 ;
     }
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iprospect Timesheet Sign In</title>
+    <title>Iprospect Timesheet Sign Up</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Source+Sans+Pro&display=swap" rel="stylesheet">
@@ -100,6 +100,7 @@ Unauthorised or improper use of this system may result in disciplinary or legal 
                                     <option disabled selected>Please pick user role</option>
                                     <option value="1">Supervisor</option>
                                     <option value="2">Intern or Freelancer</option>
+                                    <option value="3">Human Resource Department</option>
                                 </select>
                                 @error('user_type_id')
                                     <strong class="px-18" style="color:red">{{ $message }}</strong>

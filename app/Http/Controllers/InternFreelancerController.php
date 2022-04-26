@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\Timesheet;
 use App\Models\TimesheetDetail;
 use App\Helper\Helper;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
+
+use App\Mail\TimesheetNotificationMail;
 
 class InternFreelancerController extends Controller
 {
@@ -38,16 +43,14 @@ class InternFreelancerController extends Controller
      */
     public function store(Request $request)
     {
-        
         $validated = $request->validate([
             'start_date' => 'required|date_format:Y-m-d',
-            'end_date' => 'required|date_format:Y-m-d',
+            'end_date' => 'required|date_format:Y-m-d|after_or_equal:start_date',
             'work_type_id' => 'required|array|min:1',
             'work_description' => 'required|array|min:1',
             'workinghours' => 'required|array|min:1',
             'total_working_hours' => 'required'
         ]);
-
 
         if($request->submission_type == 'submit' || $request->submission_type == 'submit_from_draft'){
             $time_sheet_status = 'Waiting for Approval';
@@ -161,6 +164,21 @@ class InternFreelancerController extends Controller
         }
         //END STEPS FOR TIMESHEET DETAIL MODEL //
 
+        //email to supervisor if submit a timesheet
+        if($request->submission_type == 'submit' || $request->submission_type == 'submit_from_draft'){
+
+            //get the supervisor
+            $supervisor_id = DB::table('assigned_employees')
+            ->where('supervised_id', auth()->user()->id)
+            ->first()->user_id;
+
+            $supervisor = User::findOrFail($supervisor_id);
+            $timesheet_link = route('timesheet-detail', $timesheet->id);
+
+            Mail::to($supervisor->email)->send(new TimesheetNotificationMail($timesheet_link, auth()->user()->name));
+
+
+        }
 
         return redirect('/dashboard')->with('createSuccess',$message);
 

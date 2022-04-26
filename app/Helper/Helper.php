@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Intervention\Image\ImageManagerStatic as ImageManager;
 use Exception;
 use App\Models\Timesheet;
+use App\Models\User;
+
 
 
 class Helper
@@ -73,19 +75,37 @@ class Helper
 
     public static function updateAssignEmployeeStatus($supervisor_id, $employee_id){
         $assigned_employee = DB::table('assigned_employees')
-                            ->where('user_id', $supervisor_id)
-                            ->where('supervised_id', $employee_id);
-                            
+        ->where('user_id', $supervisor_id)
+        ->where('supervised_id', $employee_id);
+        
         
         $isNeedApproval = Timesheet::where('user_id', $employee_id)
-                                    ->where('time_sheet_status', 'Waiting for Approval')->count() > 0;
-                                    
+        ->where('time_sheet_status', 'Waiting for Approval')->count() > 0;
+        
         if($isNeedApproval){
             $assigned_employee->update(['status' => 'Need Approval']);
         }
         else{
             $assigned_employee->update(['status' => 'Completed']);
+            
+        }
+    }
 
+    public static function updateAllTimesheetStatus(){
+        
+        //get all employee
+        $users = User::where('user_type_id',2)->get();
+        
+        foreach($users as $user){
+            //get employee's supervisor 
+            $supervisor_id = DB::table('assigned_employees')
+            ->where('supervised_id', $user->id)
+            ->first()->user_id;
+            
+            $supervisor = User::findOrFail($supervisor_id);
+            
+            Helper::updateAssignEmployeeStatus($supervisor->id , $user->id);
+            
         }
     }
 

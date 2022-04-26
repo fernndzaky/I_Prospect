@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iprospect Timesheet Sign In</title>
+    <title>Iprospect Timesheet Forget Passowrd</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Source+Sans+Pro&display=swap" rel="stylesheet">
@@ -41,14 +41,11 @@ Unauthorised or improper use of this system may result in disciplinary or legal 
                     <div style="text-align:center">
                         <img src="assets/iProspect_Logo.png" class="img-fluid" style="width:12vw" alt="IProspect_Logo">
                         @if(session()->has('regiterSuccess'))
-                        <p class="px-24" style="color:green">Sign Up Successful! <br> Please Sign In</p>
-                        @endif
-                        @if(session()->has('newPasswordSent'))
-                        <p class="px-24" style="color:green">{{session('newPasswordSent')}}</p>
+                        <p class="px-24" style="margin-bottom:0.5vw;color:green">Sign Up Successful! <br> Please Sign In</p>
                         @endif
                     </div>
                     <div style="margin-top:4vw">
-                        <form action="{{ route('signin') }}" method="post">
+                        <form action="{{ route('forget-password') }}" method="post">
                             @csrf
                             <!-- START OF ONE INPUT -->
                             <div>
@@ -59,29 +56,15 @@ Unauthorised or improper use of this system may result in disciplinary or legal 
                                 @error('email')
                                     <strong class="px-18" style="color:red">Invalid email</strong>
                                 @enderror
-                            </div>
-                            <!-- END OF ONE INPUT -->
-                            <!-- START OF ONE INPUT -->
-                            <div style="margin-top:1vw">
-                                <p class="px-24" style="margin-bottom:0.5vw">Password</p>
-                                <input type="password" name="password" class="px-24" 
-                                style="width:100%;padding:0vw 0.4vw" placeholder="Insert your password" required
-                                value="{{old('password')}}">
-                                @error('password')
-                                <strong class="px-18" style="color:red">Invalid password</strong>
-                                @enderror
-
-                                
-                                @if(session()->has('loginError'))
+                                @if (session()->has('emailError'))
                                 <div style="text-align:center">
-                                    <strong class="px-18" style="color:red">{{session('loginError')}}</strong>
+                                    <strong class="px-18" style="color:red">{{session('emailError')}}</strong>
                                 </div>
                                 @enderror
-
                             </div>
                             <!-- END OF ONE INPUT -->
                             <div style="margin-top:2vw;text-align:center">
-                                <button class="btn-grey px-24" type="submit" style="width:10vw">Sign In</button>
+                                <button class="btn-grey px-24" type="submit" style="width:auto">Send New Passord</button>
                             </div>
                         </form>
                     </div>
@@ -89,10 +72,8 @@ Unauthorised or improper use of this system may result in disciplinary or legal 
                 <!-- END OF LOGIN FORM -->  
                 <!-- START OF BOTTOM SECTION -->
                 <div style="margin-top:1.5vw;text-align:center">
-                    <a href="/forget-password" class="px-18">Forgot your password?</a>
-                    <br>
-                    <p class="px-18" style="margin-bottom:0px">or</p>
-                    <a href="/signup" class="px-18">Create an account</a>
+                    <p class="px-18" style="margin-bottom:0px">Already have an account?</p>
+                    <a href="/signin" class="px-18">Sign in</a>
                 </div>
                 <div style="text-align:right;margin-top:1vw">
                     <img src="assets/iProspect_Squared_Logo.png" class="img-fluid" style="width:3vw" alt="IProspect_Logo_Square">
