@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Models\Timesheet;
 use App\Models\TimesheetDetail;
+use App\Models\WorkType;
 use App\Helper\Helper;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +33,15 @@ class InternFreelancerController extends Controller
      */
     public function create()
     {
-        return view('intern-freelancer/create-timesheet');
+        //check if the employee has a supervisor
+        $isEmployeeSupervised = Helper::isEmployeeSupervised(auth()->user()->id);
+        if($isEmployeeSupervised){
+            $work_types = WorkType::all();
+    
+            return view('intern-freelancer/create-timesheet', compact ('work_types'));
+
+        }
+        return redirect()->back()->with('noSupervisor','*You have no supervisor!');
     }
 
     /**
@@ -204,7 +213,9 @@ class InternFreelancerController extends Controller
     public function edit($id)
     {
         $timesheet = Timesheet::findOrFail($id);
-        return view('intern-freelancer/update-timesheet', compact('timesheet'));
+        $work_types = WorkType::all();
+
+        return view('intern-freelancer/update-timesheet', compact('timesheet','work_types'));
 
     }
 

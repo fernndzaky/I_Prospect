@@ -100,11 +100,13 @@ class Helper
             //get employee's supervisor 
             $supervisor_id = DB::table('assigned_employees')
             ->where('supervised_id', $user->id)
-            ->first()->user_id;
+            ->first();
             
-            $supervisor = User::findOrFail($supervisor_id);
-            
-            Helper::updateAssignEmployeeStatus($supervisor->id , $user->id);
+            if($supervisor_id){
+                $supervisor = User::findOrFail($supervisor_id->user_id);
+                
+                Helper::updateAssignEmployeeStatus($supervisor->id , $user->id);
+            }
             
         }
     }

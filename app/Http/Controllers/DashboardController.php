@@ -34,13 +34,28 @@ class DashboardController extends Controller
         }
         //if human resource department
         elseif(Auth::user()->user_type_id == 3){
-            //get all supervised employees
-            $supervised_employees = DB::table('assigned_employees')
-            ->paginate(5)
-            ->unique('supervised_id');
-            
             //update all timesheet status
             Helper::updateAllTimesheetStatus();
+            
+            //get all supervised employees
+            $supervised_employees = DB::table('assigned_employees');
+
+
+            if ($request->has('search')) {
+                if ($request->search == "") {
+                    $supervised_employees = $supervised_employees->orderBy('user_name', 'desc');            
+                } else {
+                    $search = $request->search;
+    
+                    $supervised_employees = $supervised_employees->where(function ($query) use ($search) {
+                        $query->where([['user_name', 'like', "%".$search."%"]]);
+                    });
+                }
+            }
+            
+            $supervised_employees = $supervised_employees->paginate(5)
+            ->unique('supervised_id');
+            
 
             return view('supervisor/dashboard', compact('supervised_employees'));
             

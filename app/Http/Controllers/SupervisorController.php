@@ -29,6 +29,17 @@ class SupervisorController extends Controller
     //remove intern or freelancer from supervision list
     public function removeEmployee($employee_id){
         auth()->user()->employees()->detach($employee_id);
+
+        //get all supervised timesheets
+        $timesheets = Timesheet::where('user_id',$employee_id)->get();
+        foreach($timesheets as $timesheet){
+            if($timesheet->time_sheet_status == 'Waiting for Approval'){
+                $temp_timesheet = Timesheet::findOrFail($timesheet->id);
+                $temp_timesheet->time_sheet_status = 'Rejected';
+                $temp_timesheet->signed_by = auth()->user()->name;
+                $temp_timesheet->save();
+            }
+        }
         return back()->with('removeSuccecss', 'The employee has been removed from your list.');
     }
 

@@ -26,8 +26,11 @@ class TimesheetController extends Controller
                 return redirect('/dashboard');
             }
         }
+
+        $isEmployeeSupervised = Helper::isEmployeeSupervised(auth()->user()->id);
+
         //if employee accesing the detail page
-        return view('timesheet-detail', compact('timesheet'));
+        return view('timesheet-detail', compact('timesheet','isEmployeeSupervised'));
 
     }
 

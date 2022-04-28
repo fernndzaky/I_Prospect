@@ -30,7 +30,7 @@
         </div>
     </div>
     <!-- END OF HEADER -->
-    @if(($timesheet->time_sheet_status == 'Approved' || $timesheet->time_sheet_status == 'Rejected') && auth()->user()->user_type_id == 2) 
+    @if(($timesheet->time_sheet_status == 'Approved' || $timesheet->time_sheet_status == 'Rejected') && auth()->user()->user_type_id != 1) 
     <div class="col-12" style="text-align:center;margin-top:2vw">
         <p class="px-24" style="margin-bottom:0px">Supervised by: <span style="font-weight:bold;">{{$timesheet->signed_by}}</span></p>
     </div>
@@ -78,7 +78,7 @@
         <!-- END OF ONE WORK DETAIL -->
         @endforeach
 
-        @if(auth()->user()->user_type_id == 2 && ($timesheet->time_sheet_status == 'Waiting for Approval' || $timesheet->time_sheet_status == 'Rejected'))
+        @if(auth()->user()->user_type_id == 2 && ($timesheet->time_sheet_status == 'Waiting for Approval' || $timesheet->time_sheet_status == 'Rejected') && $isEmployeeSupervised)
         <!-- START OF TOTAL WORKING HOUR -->
         <div style="padding:1.5vw 5vw;background:#F1F1F1;margin-top:2vw;border-radius:1vw;display:flex;justify-content:space-between;align-items:center">
             <div style="width:45%">
@@ -120,7 +120,7 @@
 
 
         <!-- START OF INTERN OR FREELANCER -->
-        @if(auth()->user()->user_type_id == 2)
+        @if(auth()->user()->user_type_id == 2 && $isEmployeeSupervised)
         @if($timesheet->time_sheet_status == 'Waiting for Approval' || $timesheet->time_sheet_status == 'Rejected')
         <form action="{{route('update-timesheet-status')}}" method="post">
             @csrf

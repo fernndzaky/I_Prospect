@@ -61,8 +61,9 @@
                             <select class="px-18" id="work_type"
                             style="width:100%;padding:0.5vw">
                                 <option disabled selected>Please choose work type</option>
-                                <option value="1">IProspect Project Work</option>
-                                <option value="2">Internal Meeting</option>
+                                @foreach($work_types as $work_type)
+                                <option value="{{$work_type->id}}">{{$work_type->type}}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -101,8 +102,9 @@
                             <select name="work_type_id[]" class="px-18" id="work_type"
                             style="width:100%;padding:0.5vw" required>
                                 <option value="" disabled selected>Please choose work type</option>
-                                <option value="1">IProspect Project Work</option>
-                                <option value="2">Internal Meeting</option>
+                                @foreach($work_types as $work_type)
+                                <option value="{{$work_type->id}}">{{$work_type->type}}</option>
+                                @endforeach
                             </select>
                             @error('work_type')
                                 <strong class="px-18" style="color:red">{{ $message }}</strong>

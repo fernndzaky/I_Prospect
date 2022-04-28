@@ -66,7 +66,9 @@
             List of Employees
             @endif
         </p>
-            <a href="#new-employee" class="btn-grey px-24"style="width:auto;text-align:center;text-decoration:none;padding-left:2vw;padding-right:2vw">Add New</a>
+        @if(auth()->user()->user_type_id == 1)
+        <a href="#new-employee" class="btn-grey px-24"style="width:auto;text-align:center;text-decoration:none;padding-left:2vw;padding-right:2vw">Add New</a>
+        @endif
     
         </div>
     </div>
@@ -78,6 +80,14 @@
         <div style="text-align:center;padding-bottom:1vw">
             <p class="px-24" style="color:green">{{session('removeSuccecss')}}</p>
         </div>
+        @endif
+
+        @if(auth()->user()->user_type_id == 3)
+
+        <form action="" method="GET" style="margin-bottom:1vw">
+            <input name="search" value="{{ Request::get('search') }}" type="search" class="px-24" 
+                                style="width:30%;padding:0vw 0.4vw"  placeholder="Search an employee" aria-controls="dataTable">
+        </form>
         @endif
         <table class="table" style="padding:1vw 2vw;background:#F1F1F1;border-radius:1vw;">
             <thead>

@@ -14,9 +14,11 @@ class WorkTypeSeeder extends Seeder
      */
     public function run()
     {
-        $work_type = ['IProspect Individual Work', 'Internal Meeting'];
+        $work_type = ['iProspect Project Work', 'iProspect individual Work', 'iProspect Project Meeting'
+        , 'Internal Meeting', 'Internal Training', 'Professional Development', 'Planned Absence', 'Unplanned Absence'
+        , 'Public Holidays', 'Unassigned'];
 
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < count($work_type); $i++) {
             WorkType::create([
                 'type' => $work_type[$i]
             ]);

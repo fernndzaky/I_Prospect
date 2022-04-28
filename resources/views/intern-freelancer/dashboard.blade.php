@@ -10,7 +10,13 @@
     <div class="col-12 p-0">
         <div style="padding:1vw 2vw;background:#F1F1F1;margin-top:4vw;border-radius:1vw;display:flex;align-items:center;justify-content:space-between">
             <p class="px-36" style="font-weight:bold;color:#92D050;margin-bottom:0px" >Timesheet</p>
-            <a href="{{route('create-timesheet')}}" class="btn-grey px-24"style="width:auto;text-align:center;text-decoration:none;padding-left:2vw;padding-right:2vw">Add New</a>
+            <div style="display:flex;align-items:center">
+            @if(session()->has('noSupervisor'))
+            <p class="px-18" style="margin-bottom:0px;color:#FF0101;font-weight:bold;margin-right:2vw">{{session('noSupervisor')}}</p>
+            @endif
+
+                <a href="{{route('create-timesheet')}}" class="btn-grey px-24"style="width:auto;text-align:center;text-decoration:none;padding-left:2vw;padding-right:2vw">Add New</a>
+            </div>
     
         </div>
     </div>
