@@ -61,7 +61,7 @@
                             <p class="px-18" style="margin-bottom:0.5vw;color:#3A8D1C;font-weight:bold">Work Type</p>
                             <select class="px-18" id="work_type"
                             style="width:100%;padding:0.5vw">
-                                <option disabled selected>Please choose work type</option>
+                                <option value="" disabled selected>Please choose work type</option>
                                 @foreach($work_types as $work_type)
                                 <option value="{{$work_type->id}}">{{$work_type->type}}</option>
                                 @endforeach
@@ -103,7 +103,7 @@
                             <p class="px-18" style="margin-bottom:0.5vw;color:#3A8D1C;font-weight:bold">Work Type </p>
                             <select name="work_type_id[]" class="px-18" id="work_type"
                             style="width:100%;padding:0.5vw" required>
-                                <option value="" disabled>Please choose work type</option>
+                                <option value="" disabled selected>Please choose work type</option>
                                 @foreach($work_types as $work_type)
                                 <option @if($timesheetDetail->work_type_id == $work_type->id) selected @endif value="{{$work_type->id}}">{{$work_type->type}}</option>
                                 @endforeach
@@ -209,7 +209,6 @@ function duplicateRequirement() {
 
 function removeDiv(elem, wrapper_id){
     var parent = $(elem).parent('div').parent('div').parent('div');
-    console.log(document.getElementById(wrapper_id).childElementCount)
     if (document.getElementById(wrapper_id).childElementCount > 2) {
         parent.remove();
     } else {
