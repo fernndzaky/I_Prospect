@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Helper\Helper;
 use App\Models\Timesheet;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UpdateTimesheetStatusMail;
+
 
 
 class SupervisorController extends Controller
@@ -68,6 +71,10 @@ class SupervisorController extends Controller
         else{
             $timesheet->signed_by = auth()->user()->name;
             $timesheet->save();
+            $timesheet_link = route('timesheet-detail', $timesheet->id);
+
+            Mail::to($timesheet->user->email)->send(new UpdateTimesheetStatusMail($timesheet_link,$request->update_type));
+
         }
         return redirect()->back();
 
