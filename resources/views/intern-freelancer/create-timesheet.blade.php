@@ -153,8 +153,11 @@
             </div>
 
             <!-- START OF TOTAL WORKING HOUR -->
-            <div style="padding:1.5vw 5vw;background:#F1F1F1;margin-top:5vw;border-radius:1vw;">
-                <div style="text-align:right">
+            <div style="padding:1.5vw 5vw;background:#F1F1F1;margin-top:5vw;border-radius:1vw;display:flex;justify-content:space-between;align-items:center">
+                <div style="width:50%">
+                    <p class="px-18" style="margin-bottom:0px;color:#FF0101;font-weight:bold">*Reminder: This is a new timesheet, please do not forget to either save or submit when you are finish. Otherwise all of the current progress would not be saved.</p>
+                </div>
+                <div >
                     <p class="px-18" style="margin-bottom:0px;color:#3A8D1C;">Total Working Hours: <span class="px-24"><input type="number" style="width:3vw;text-align:center" name="total_working_hours" id="total_working_hours" required></span></p>
                     @error('total_working_hours')
                         <br>
@@ -162,6 +165,7 @@
                     @enderror 
                 </div>
             </div>
+
             <!-- END OF TOTAL WORKING HOUR -->
 
             <!-- START OF ACCEPT REJECT SUPERVISOR -->

@@ -90,6 +90,10 @@ input[type="file"] {
                 <div style="background-color:white;padding:2vw;border-radius:1vw;width:100%;height:100%">
                     <p class="px-24" style="margin-bottom:0.5vw;color:green">{{session('message')}}</p>
                     <div class="row m-0">
+                        <div class="col-12 p-0">
+                        <p class="px-18" style="font-weight:bold;color:#333333;" >*Please Note: Don't forget to press the update profile button above after you change the name, occupation or upload a picture. Otherwise all of the current changes would not be saved. This is not necessary for change password.</p>
+
+                        </div>
                         <div class="col-md-6 col-xs-12 p-0">
                             <div>
                                 <p class="px-24" style="font-weight:bold;color:#92D050;margin-bottom:0px" >Name</p>
