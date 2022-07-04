@@ -158,7 +158,7 @@ input[type="file"] {
                             <input id="file-upload" accept=".jpeg,.jpg,.png" name='avatar' type="file" style="display:none;">
                             <br>
                             @error('avatar')
-                                <strong class="px-18" style="color:red">lorem</strong>
+                                <strong class="px-18" style="color:red">{{ $message }}</strong>
                             @enderror
                         </div>
                     </div>

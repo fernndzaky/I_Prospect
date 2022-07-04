@@ -24,6 +24,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255', 'min:3'],
             'occupancy' => ['required', 'string', 'max:255'],
+            'avatar' => ['max:5000'],
         ]);
 
         $user = User::findOrFail(Auth::user()->id);
